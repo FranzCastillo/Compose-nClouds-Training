@@ -1,0 +1,19 @@
+services:
+  database:
+    container_name: MySQL
+    environment:
+      MYSQL_ROOT_PASSWORD: cases123
+    build:
+      context: ./database
+    ports:
+      - "3306:3306"
+  webapp:
+    container_name: App
+    depends_on:
+      - database
+    build:
+      context: ./webapp
+    ports:
+      - "3000:80"
+    command:
+      - "python server.py"
